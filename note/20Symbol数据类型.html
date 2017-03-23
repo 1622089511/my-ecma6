@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+
+<body>
+    <script type="text/javascript">
+    //Symbol通过symbol函数来生成,表示独一无二的值
+    	let s = Symbol();	   //创建symbol不能使用new,因为symbol是一种原始的数据类型不是对象	
+	    console.log(typeof s); //symbol   
+    //一、基础用法:    
+    	//1.传入字符串	
+    	
+        let s1 = Symbol('foo');
+        let s2 = Symbol('bar');
+        
+        console.log( s1.toString() );	//Symbol(foo)
+        console.log( s2.toString() );	//Symbol(bar)
+        
+     	//2.传入对象
+     	
+     	const obj={
+     		toString(){
+     			return 'abc';
+     		}
+     	};
+     	const sym = Symbol(obj);
+     	console.log(sym);	   //symbol(abc);	
+     	
+    	//3.传入相同参数.symbol函数的参数只代表当前Symbol值的描述,因此相同参数的Symbol值返回值不等    
+        
+        let s3 = Symbol();
+        let s4 = Symbol();
+        console.log(s3 === s4);//false
+        
+        let s5 = Symbol('foo');
+        let s6 = Symbol('foo');
+        console.log(s5 === s6);//false
+        
+        //注意点:symbol不能与其它类型值相互运算,console.log( s5+12 ); 这样会报错 
+        //可以直接通过toString显式转化为字符串String(sym),s.toString(),也可转为布尔值,不能转为数值
+    //二、作为属性名：  （Symbol每一个都不等,因此symbol可以作为标识符，用于对象的属性名,防止键值被修改~）
+    	
+    	//1.
+    	var mySym= Symbol();	//相当于键值
+    	
+    	let a = {};
+    	a[mySym] = 'hello';
+    	console.log( a[mySym] );  // hello
+        
+        //2.
+        let b = {
+        	[mySym] : 'lee'
+        }
+        console.log(b[mySym]);	//lee
+        
+        //3.Object.defineProperty(c,mySym,{value : 'jack'})
+        
+    //三、消除魔法字符串：
+    	/*
+    	function getArea(shape,ops){
+    	    var area = 0;
+    	    switch (shape){
+    	    	case 'Triangle': 	//魔法字符串
+    	    		area = .5 * ops.width * ops.height; 
+    	    		break;
+    	    }
+    	    return area;
+    	}
+    	
+    	let area = getArea('Triangle',{width:100,height:10});
+    	console.log(area);
+    	*/
+    									
+    	const shapeType = {				//抽取魔法字符串
+    		triangle : Symbol()         //这个值等于什么并不重要,最好不要与其它值冲突就行
+    	}
+    	function getArea(shape,ops){
+    	    let area = 0;
+    	    switch (shape){
+    	    	case shapeType.triangle:
+    	    		area = ops.width * ops.height*.5;
+    	    }
+    	    return area;
+    	}
+    	console.log(getArea(shapeType.triangle,{width:100,height:10}));//500
+    	
+    	
+    //四、属性名遍历：	使用Object.getOwnPropertySymbols()
+    	var o = {};
+    	let v1 = Symbol('a');
+    	let v2 = Symbol('b');
+    	o[v1] = 'hello';
+    	o[v2] = 'world';
+    	
+    	console.log(o);			//Object{Symbal(a):"hello",Symbol(b):"world"}
+    	console.log( Object.getOwnPropertySymbols(o) );  //Array[Symbol(a),Symbol(b)]
+    
+    
+    	console.log(  Object.getOwnPropertyNames(o) ); //[]空数组
+    	for(var i in o){
+    		console.log(o[i]);	//没有数据
+    	}
+    	console.log( Reflect.ownKeys(o) );	//新的api:apiReflect.ownKeys()
+    	
+    //五、Symbol.for(),Symbol.keyFor()
+    
+    	//Symbol.for()会应用于全局环境，调用返回值是同一个,但是symbol()会返回不同的值
+    	
+    	let sym1 = Symbol.for('a');
+    	let sym2 = Symbol.for('a');
+    	
+    	console.log(sym1 === sym2);	//true,使用symbol.for赋值的数据可以复用。
+    	
+    
+    	//Symbol.keyFor()返回一个已经登记了的symbol值
+    	
+    	console.log(Symbol.keyFor(sym1));	//a
+    	
+    	
+    </script>
+</body>
+
+</html>

@@ -113,10 +113,11 @@
 					}
 					console.log(o5); //aaa         先找到同名属性，然后再赋给对应的变量。真正被赋值的是后者，而不是前者。
 				//例子	
-					let obj ={																							//     var obj = { first: 'hello', last: 'world' }
-						first : 'hello', last: 'world'																//		var f = obj.first;
-					};																	//   对应的es5 =>		//		var l = obj.last;
-					let{first : f ,last : l} = obj;																	//     console.log(obj.f,obj.l)
+					let obj ={
+						first : 'hello', last: 'world'															
+					};																	
+					let{first : f ,last : l} = obj;																
+					console.log(obj.f,obj.l)
 					console.log(f+','+l)		//hello,world
 				//所以对象的解构实际上是被赋值的是f和l，f和l是匹配模式，first和last是参数
 				//对于let和const不能重复声明，所以需要注意
