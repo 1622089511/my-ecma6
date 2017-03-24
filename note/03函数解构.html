@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+	<script type="text/javascript">
+	//参数解构
+		
+		/*function add([x,y]){
+		    return x + y;
+		}
+		console.log(add(1,2)); //3
+		*/
+		var arr = [[1, 2], [3, 4]].map(([a, b]) => a + b);
+		console.log( arr ); // [3,7]
+		
+		//如果move的参数是一个对象那么可以这么写
+		function move({x=0,y=0}={}){
+			return [x,y];
+		}
+		console.log(move()); //[0 0]
+		console.log(move({x:7,y:8})); //[7,8]
+		
+		//为move2参数指定默认值
+		function move2({x,y} = {x:0,y:0}){
+		    return [x,y];
+		}
+		
+		console.log(move2()); 		// [0,0]
+		console.log(move2({x:10})); // [10,undefined]
+		console.log(move2({y:5}));	// [undefined,5]
+		
+		
+		
+	</script>	
+	</body>
+</html>

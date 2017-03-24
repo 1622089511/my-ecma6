@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+
+	<body>
+		<script type="text/javascript">
+			//解构可以使用圆括号的时候
+
+			/*	
+				[(b)] = [3];
+				
+				({p : (d)} = {}); 
+				
+				[(parseInt.prop)] = [3];
+				
+				都是赋值语句,它们的圆括号都不属于模式的一部分
+			*/
+
+			//用途
+			//1.交换变量的值：方便数据交换
+			let x = 1;
+			let y = 2;
+			[x, y] = [y, x];
+			console.log(x, y); // 2 1  
+
+			//2.从函数返回多个值 ：有了解构赋值，取多个值就非常方便。
+
+			function example() {
+				return [1, 2, 3];
+			}
+			let [a, b, c] = example();
+			console.log(a, b, c); // 1 2 3 
+
+			function example2() {
+				return {
+					foo: 1,
+					bar: 2
+				}
+			}
+			let { foo, bar } = example2();
+			console.log(foo, bar) // 1  2 
+
+			//3.函数参数的定义:解构赋值可以方便地将一组参数与变量名对应起来。
+
+			function f([x, y, z]) {} //有序
+			f([1, 2, 3]);
+
+			function f({ x, y, z }) {} //无序
+			f({ y: 10, x: 5, z: 0 });
+
+			//4.提取JSON数据
+			let jsonData = {
+				id: 42,
+				status: "ok",
+				data: [70, 50]
+			};
+
+			let { id, status, data } = jsonData;
+
+			console.log(id, status, data) // 42 "ok" [70,50]
+
+			/*5.函数参数的默认值
+					//指定了大量的参数默认值,避免内部配置	
+			jQuery.ajax = function(url, {
+				async = true,
+				beforeSend = function() {},
+				cache = true,
+				complete = function() {},
+				crossDomain = false,
+				global = true,
+				// ... more config
+			}) {
+				// ... do stuff
+			};*/
+			
+			//6.遍历Map结构
+			
+			var map = new Map();
+			map.set('first','hello');
+			map.set('second','world');
+			
+			for(let [key,value] of map){
+				console.log(key +":"+value); //直接使用key : value
+			}
+			
+			//7.模块指引方式
+			
+			const { SourceMapConsumer, SourceNode } = require("source-map");
+			
+			
+		</script>
+	</body>
+
+</html>
