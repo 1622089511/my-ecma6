@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+
+	<body>
+		<script type="text/javascript">
+		/*	
+				String(thing)       string
+				new String(thing)   object
+					
+					
+				ES6,字符串字面量也称为模板字面量 `hello${world}`  'hello + 'world' '    '<a>${who}</a>'
+			 	
+				常见的转义
+					\0 	空
+					\' 	单引 
+					\" 	双引
+					\\ 	反斜杠
+					\n 	换行
+					\r 	回车
+					\v 	垂直制表符
+					\t 	水平制表符
+					\b 	退格
+					\f 	换页
+					\ux unicode编码      作用域\u0000~\uFFFF  超出这个范围的字符，必须用两个双字节的形式表示。
+				
+			Unicode的改进:console.log( "\u0061" ); //a
+			     		console.log("\u{41}\u{42}\u{43}"); //ABC
+			
+			js表示字符的方法:
+				'\z' === 'z'  // true
+				'\172' === 'z' // true
+				'\x7A' === 'z' // true
+				'\u007A' === 'z' // true
+				'\u{7A}' === 'z' // true
+		
+						
+			属性:String.prototype.constructor
+				String.prototype.length
+			API:
+				0.String.prototype.charAt() 	   //返回索引位置的值,从0开始	
+				1.String.prototype.charCodeAt()    //Unicode索引值
+				2.String.prototype.formcharCode()  //返回unicode码点的值
+				
+				3.String.prototype.concat()        //拼接
+				4.String.prototype.indexOf()       //返回值索引,没有返回-1
+				5.String.prototype.lastIndexOf()   //返回值最后一次位置的索引
+				6.String.prototype.trim() trimLeft() trimRight()  //去空格
+				7.String.prototype.toUpperCase()   //大写
+				8.String.prototype.toLowerCase()   //小写
+				
+				9.String.prototype.toString()      //转字符串,带参数就转换为相应的编码 2 8 16 
+				10.String.prototype.valueOf() 	   //String对象的原始值。该值等同于String.prototype.toString()
+				
+				11.String.prototype.replace(regexp,)  //替换 
+				12.String.prototype.match(regexp)     //根据条件返回值
+				13.String.prototype.search(regExp)    //正则判断值，无则返回-1
+				
+				
+				14.String.prototype.slice()           		 
+				15.String.prototype.substr(con,len) 		 //取值,取负数可从末尾取,length不赋则取到末尾
+				16.String.prototype.subString(indexS,indexE) //通过index取值  str.substring(1, 0) == str.substring(0, 1)。
+				
+				17.String.prototype.split()          //切割共同值余下字符串转为数组
+			
+				
+			
+			ES6 API:
+				1.String.prototype.codePointAt()    //通过返回码点的10进制值
+				2.String.prototype.fromCodePoint()  //通过进制值返回码点
+				3.String.prototype.at()             //弥补es5的charAt()大于/xFFFFF,返回索引的值
+				4.String.prototype.normalize()      //用来将字符的不同表示方法统一为同样的形式
+				
+				5.String.prototype.includes()       //返回布尔值,是否包含
+				6.String.prototype.startsWith()     //返回布尔值,是否在头部
+				7.String.prototype.endsWith()       //返回布尔值,是否在尾部
+				
+				8.String.prototype.repeat()         //传参,获取多个重复次数的值,传负或者infinity会报错
+				9.String.prototype.raw()            //String.raw方法，往往用来充当模板字符串的处理函数，返回一个斜杠都被转义的字符串
+			ES7:	
+				9.padeStart(num,"con") padeEnd()  	//头部补全,尾部补全,根据第2个参数或者空格循环补全
+				
+				
+		*/	
+			//const s = "王a";
+			//console.log(s.codePointAt(0),s.codePointAt(1));//0位就是王,1位就是a   //29579 97
+			
+			const s2 = '𠮷';
+			console.log(s2.codePointAt(0),s2.codePointAt(1)); //134071 57271 对于这种UTF16字符就一个就占据2位
+			
+			//用方法检测
+			function is32Bit(c) {
+  				return c.codePointAt(0) > 0xFFFF;  //判断2个字节还是4个字节
+			}
+			//is32Bit(s);  //false
+			is32Bit(s2); //true
+			
+			//unicode用for of遍历
+			
+			const s3 = String.fromCodePoint(0x20BB7);
+			console.log(s3); 	//𠮷
+			
+
+			for(let i of s3){   //通过for of可以直接遍历
+				console.log(i); //𠮷
+			}
+			
+			var s5 = '𠮷'.repeat(5);
+			console.log(s5); 	//𠮷𠮷𠮷𠮷𠮷
+			
+			var s6 = String.raw`Hi\n${2+3}!`;
+			console.log(s6);	//打印出来是Hi\n5!,这里得到的不是 Hi 后面跟个换行符，而是跟着 \ 和 n 两个字符
+			
+			var s7 = String.raw`Hi\\n`;
+			console.log(s7);    //Hi\\n
+			
+			console.log( '王小姐'.includes('王') ); //true 
+		
+		//slice substr substring:  
+			//都是1个参数，正值时
+			var s = "hello world"
+				console.log(s.slice(2));      				 //llo world
+				console.log(s.substr(2));					 //llo world
+				console.log(s.substring(2));			 	 //llo world
+			//	1个参数，负值时
+				console.log(s.slice(-2));                    //ld   取后2项  ==>slice(11-3)
+				console.log(s.substr(-2));                   //ld   取后2项  ==>substr(11-3)
+				console.log(s.substring(-1));                //substring  hello world   
+				
+			//2个参数
+				console.log(s.substr(0,2));					 //he
+				console.log(s.substring(0,2));         		 //he  取字符串位置的数。
+				console.log(s.slice(2,-2));      			 //llo wor去掉前面2个以及后面2个
+		
+		</script>
+	</body>
+
+</html>
