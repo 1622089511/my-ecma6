@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+	<script type="text/javascript">
+	/*	Number属性：.MAV_VALUE .MIN_VALUE .NAN 
+		
+		API: 
+			es5:
+				1.Number.prototype.toLocaleString(); //返回本地数据US 3500=>3,500
+				2.Number.prototype.valueOf();        //把一个object类型的数值转为number
+			    3.Number.prototype.toString();       //传参2,8,16,32则转为进制值
+				4.Number.prototype.toFixed();        //传参保留小数位后的值
+				5.Number.prototype.toExponential()   //以指数表示法返回该数值字符串表示形式。
+			
+			es6:
+				0.Number.prototype.isInteger();      //是否是整数
+				1.Number.prototype.isNaN();			 //是否是NAN
+				2.Number.prototype.isFinite();       //是否是有限的
+				3.Number.prototype.parseInt();		 //将全局的parseInt和parseFloat移植到Number对象上去了
+				4.Number.prototype.parseFloat();       可以根据给定的进制数把一个字符串解析成整数,Number.parseInt(str,radix)
+				5.Number.EPSILON 					 //引入极小常量,如果数据操作误差小于这个常量则可认为得到正确结果
+				6.安全整数和Number.isSafeInteger() 	 //判断整数是否在这个范围内2^53	
+	*/			
+	
+	//  Math属性:e,LN2,LN10,LOG2E,LOG10E,PI,SQRT1_2,SQRT2
+	/*
+		API:
+			es5:
+				0.Math.max(),Math.min() 最大最小
+				1.Math.abs()   绝对值
+				2.Math.floor() 向下取整
+				3.Math.ceil()  向上取整
+				4.Math.round() 四舍五入
+				5.Math.random()0-1随机数
+				6.Math.paw(x,y) x的y次方 
+				4.Math.exp(x)   e^x次方
+				
+			es6:
+				0.Math.trunc() 只去除小数部分,保留正负
+				1.Math.sign()  返回参数判断正负,1正数,-1负数,其他值返回NAN
+				2.Math.cbrt()  返回立方根  8.cbrt()=>2
+				3.Math.clz32() 返回值表示32位的该数据前面有多少个0
+				4.Math.imul()  返回两个数以32位带符号整数形式相乘的结果
+				5.Math.fround() 返回一个单精度浮点数形式
+				6.Math.hypot()  返回所有参数的平方和的平方根
+			指数运算符**
+				2**2 = 4   2**3 = 8
+			指数：	
+				7.Math.expm1()  返回e^x-1
+				8.Math.log1p()
+				9.Math.log10()
+				10.Math.log2()
+			三角函数：
+				Math.sinh(x) 返回x的双曲正弦（hyperbolic sine）
+				Math.cosh(x) 返回x的双曲余弦（hyperbolic cosine）
+				Math.tanh(x) 返回x的双曲正切（hyperbolic tangent）
+				Math.asinh(x) 返回x的反双曲正弦（inverse hyperbolic sine）
+				Math.acosh(x) 返回x的反双曲余弦（inverse hyperbolic cosine）
+				Math.atanh(x) 返回x的反双曲正切（inverse hyperbolic tangent）
+				
+	*/
+	
+	
+			var s = 15.5;
+			console.log( Number.parseInt(15.5,8) );// 1*8 + 5*8^0
+		
+		
+		
+	</script>
+	</body>
+</html>
