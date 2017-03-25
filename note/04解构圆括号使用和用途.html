@@ -76,22 +76,20 @@
 			}) {
 				// ... do stuff
 			};*/
-			
+
 			//6.遍历Map结构
-			
+
 			var map = new Map();
-			map.set('first','hello');
-			map.set('second','world');
-			
-			for(let [key,value] of map){
-				console.log(key +":"+value); //直接使用key : value
+			map.set('first', 'hello');
+			map.set('second', 'world');
+
+			for(let [key, value] of map) {
+				console.log(key + ":" + value); //直接使用key : value
 			}
-			
+
 			//7.模块指引方式
-			
+
 			const { SourceMapConsumer, SourceNode } = require("source-map");
-			
-			
 		</script>
 	</body>
 

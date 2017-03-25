@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+	<script type="text/javascript">
+		
+	/*WeakSet结构类似,但只能存入不相同的对象,且WeakSet是弱类型,如果其他对象不在引用它，垃圾回收自动清理所占内存
+	
+	let ws = new WeakSet();
+		ws.add(1);
+	console.log(ws); //报错,不能添加除了对象的其它值
+	*/	
+		
+	var a = [[1,2],[3,4]];  //[1,2,3,4]会报错
+	
+	var ws = new WeakSet(a);
+		console.log(ws);  //WeakSet {[3, 4], [1, 2]}
+		
+		
+		
+		
+		
+		
+	</script>	
+	</body>
+</html>
