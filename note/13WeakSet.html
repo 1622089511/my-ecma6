@@ -14,16 +14,35 @@
 	console.log(ws); //报错,不能添加除了对象的其它值
 	*/	
 		
-	var a = [[1,2],[3,4]];  //[1,2,3,4]会报错
-	
+	var a = [[1,2],[3,4]];  //[1,2,3,4]会报错,因为添加是a数组的成员,成员是数组对象
+							//添加(Symbol())也会报错
 	var ws = new WeakSet(a);
 		console.log(ws);  //WeakSet {[3, 4], [1, 2]}
 		
 		
+	//API:  add(),delete(),has()
+		 
+	//注意:没有size属性
+	
+		console.log(ws.size); //undefined
 		
+	//关于遍历:WeakSet不能遍历，是因为成员都是弱引用，随时可能消失，遍历机制无法保证成员的存在，很可能刚刚遍历结束，成员就取不到了。
+	//WeakSet的一个用处，是储存DOM节点，而不用担心这些节点从文档移除时，会引发内存泄漏。
+	
+		const foos = new WeakSet();
 		
+		class Foos{
+			constructor(){
+				foos.add(this)
+			}
+			method(){
+				if(!foos.has(this)){
+			//		thorw new TypeError('Foo.prototype.method 只能在Foo的实例上使用');
+				}
+			}		
+		}
 		
-		
+	
 	</script>	
 	</body>
 </html>

@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<div id="myDiv"></div>
+	<script type="text/javascript">
+	/*
+	JavaScript的对象（Object），本质上是键值对的集合（Hash结构），但是传统上只能用字符串当作键
+		var data = {};
+		var element = document.getElementById('myDiv');
+		data[element] = 'metaData';                        //对象只接受字符串作为键名,所以element自动变成字符串[object HTMLDivElement]
+		console.log( data['[object HTMLDivElement]'] );    //metaData	
+	*/	
+		
+	//Map:类似于对象，也是键值对的集合，但键的范围不仅是字符串,包括对象也可以成为键,obj[字符串]=值,Map[值]=值,更加自由
+	//实例属性和操作:size   |    set(key,value),get(key)	has(key),delete(key),clear
+	//遍历方法：keys() values() ertries() forEach()
+	
+	var m = new Map();
+	var o = {p:'hello world'};
+	
+	m.set(o,'content');     //把o作为m的一个键值
+	m.get(o);               //get m对应的键名o的值
+	console.log(m.get(o)); //content
+	
+	m.has(o);    //true
+	m.delete(o);
+	m.has(o);   //false
+	
+	//接受数组为键名
+	
+	var items =[ ['name','张三'], ['title','farmer'] ];
+	//var map = new Map(items);
+	var map2 = new Map();
+	//console.log(map);
+	
+	items.forEach(([key,value]) => map2.set(key,value)); //map接受参数实际是这样的算法  Map {"name" => "张三", "title" => "farmer"}
+	console.log(map2);
+	
+	
+	//赋值注意：字符串和其他数据不是同一值,同一键名多次赋值后面的值会覆盖前面的值,如果读取一个未知的键，则返回undefined。
+		var map3 = new Map().set('1','aaa').set('1','bbb');
+		console.log(map3.get('1'));
+	
+	
+	//只有对同一个对象的引用，Map结构才将其视为同一个键。这一点要非常小心。
+		var map4 = new Map();
+		map4.set(['a'], 555);
+		console.log( map4.get(['a'])); //undefined
+		console.log(map4);             //Map{["a"] => 555}
+	
+	//Map的值是内存地址绑定的,只要内存地址不一样，就视为两个键
+	
+		var map5 = new Map();
+		
+		var k1 = ['a'];
+		var k2 = ['a'];
+		
+		map5.set(k1,111).set(k2,222);
+		
+		console.log(k1 === k2);					//false
+		console.log(map5.get(k1),map5.get(k2)); //111,222
+		
+	
+		map5.forEach((value,key) => console.log(value,key)) //111 ["a"]  222 ["a"]
+	
+	//还可以接受第2参数表示this
+		var reporter = {
+  				report: function(key, value) {
+    			console.log("Key: %s, Value: %s", key,value);
+  			}
+		};
+			
+		map5.forEach(function (value,key){
+			this.report(key,value);    
+		},reporter)
+	//数据转换
+	
+		//map转为数组[...maps];
+		//数组转为map new Map([['true',7],[{foo:3},['abc']]])
+		//map转为对象  如果map所有值为字符串才能转为对象,遍历[key,value]插入obj里
+		//对象转map  遍历对象使用map.set插入(k,obj[k])
+		
+		//map转为json
+		
+		//一种情况是，Map的键名都是字符串，这时可以选择转为对象JSON。
+			function strMapToJson(strMap) {
+  				return JSON.stringify(strMapToObj(strMap));
+			}
+
+			let myMap = new Map().set('yes', true).set('no', false);
+			strMapToJson(myMap)
+		
+		//另一种情况是，Map的键名有非字符串，这时可以选择转为数组JSON。
+		
+			function mapToArrayJson(map) {
+ 			 return JSON.stringify([...map]);
+			}
+
+			let myMap = new Map().set(true, 7).set({foo: 3}, ['abc']);
+			mapToArrayJson(myMap)
+			
+			
+	</script>
+	</body>
+</html>
